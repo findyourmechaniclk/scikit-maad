@@ -4,6 +4,7 @@
 name: ci-cd
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "production" ]
   pull_request:
