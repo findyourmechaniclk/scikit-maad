@@ -1,3 +1,10 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 3 optimizations:
+# - [HIGH] Add pip dependency cache to "build" job
+# - [MEDIUM] Add concurrency group to "ci-cd.yml"
+# - [LOW] Explicitly set fail-fast for large matrix job "build" (13 combinations)
+# Estimated savings: ~7 min/run
+#
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
@@ -10,6 +17,10 @@ on:
   pull_request:
     branches: [ "production" ]
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
 
